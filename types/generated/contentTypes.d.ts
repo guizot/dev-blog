@@ -1077,6 +1077,29 @@ export interface ApiMenuMenu extends Schema.CollectionType {
   };
 }
 
+export interface ApiNoteNote extends Schema.CollectionType {
+  collectionName: 'notes';
+  info: {
+    singularName: 'note';
+    pluralName: 'notes';
+    displayName: 'Note';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::note.note', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::note.note', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPostPost extends Schema.CollectionType {
   collectionName: 'posts';
   info: {
@@ -1257,6 +1280,7 @@ declare module '@strapi/types' {
       'api::header.header': ApiHeaderHeader;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::menu.menu': ApiMenuMenu;
+      'api::note.note': ApiNoteNote;
       'api::post.post': ApiPostPost;
       'api::seo-config.seo-config': ApiSeoConfigSeoConfig;
       'api::service.service': ApiServiceService;
